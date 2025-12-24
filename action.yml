@@ -1,0 +1,58 @@
+name: 'MinIO Artifact Action'
+description: 'Загрузка, скачивание и удаление артефактов в MinIO хранилище'
+author: 'AutobusOne'
+
+inputs:
+  operation:
+    description: 'Операция для выполнения: upload, download, delete'
+    required: true
+  
+  minio_endpoint:
+    description: 'URL эндпоинта MinIO сервера'
+    required: true
+  
+  minio_access_key:
+    description: 'Access Key для авторизации в MinIO'
+    required: true
+  
+  minio_secret_key:
+    description: 'Secret Key для авторизации в MinIO'
+    required: true
+  
+  bucket:
+    description: 'Имя бакета в MinIO'
+    required: true
+  
+  source:
+    description: 'Путь к файлу или директории для операций upload'
+    required: false
+    default: ''
+  
+  destination:
+    description: 'Локальный путь для сохранения артефакта (только для операции download)'
+    required: false
+    default: ''
+  
+  artifact_name:
+    description: 'Имя артефакта в бакете'
+    required: true
+  
+  auto_create_bucket:
+    description: 'Автоматически создавать бакет, если он не существует (только для операции upload)'
+    required: false
+    default: 'false'
+
+outputs:
+  artifact-url:
+    description: 'URL загруженного артефакта (для операции upload)'
+  
+  operation-status:
+    description: 'Статус выполнения операции'
+
+runs:
+  using: docker
+  image: Dockerfile
+
+branding:
+  icon: 'archive'
+  color: 'red'
